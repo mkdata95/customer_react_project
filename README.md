@@ -1,3 +1,7 @@
+## Management System
+
+본 프로그램은 서버를 이용한 리엑트 테스트 프로그램입니다.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
