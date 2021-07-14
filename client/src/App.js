@@ -20,34 +20,21 @@ const styles = (theme) => ({
   },
 });
 
-const customers = [
-  {
-    id: 1,
-    image: "https://placeimg.com/64/64/1",
-    name: "홍길동",
-    birthday: "19680826",
-    gender: "남자",
-    job: "직원",
-  },
-  {
-    id: 2,
-    image: "https://placeimg.com/64/64/2",
-    name: "이미숙",
-    birthday: "1911116",
-    gender: "여자",
-    job: "학생",
-  },
-  {
-    id: 3,
-    image: "https://placeimg.com/64/64/3",
-    name: "나잘난",
-    birthday: "20001826",
-    gender: "남자",
-    job: "개발자",
-  },
-];
-
 class App extends Component {
+  state = {
+    customers: "",
+  };
+  componentDidMount() {
+    this.callApi()
+      .then((res) => this.setState({ customers: res }))
+      .catch((err) => console.error(err));
+  }
+
+  callApi = async () => {
+    const response = await fetch("/api/customers");
+    const body = await response.json();
+    return body;
+  };
   render() {
     const { classes } = this.props;
     return (
@@ -64,19 +51,21 @@ class App extends Component {
             </TableRow>
           </TableHead>
           <TableBody>
-            {customers.map((c) => {
-              return (
-                <Customer
-                  key={c.id}
-                  id={c.id}
-                  image={c.image}
-                  name={c.name}
-                  birthday={c.birthday}
-                  gender={c.gender}
-                  job={c.job}
-                />
-              );
-            })}
+            {this.state.customers
+              ? this.state.customers.map((c) => {
+                  return (
+                    <Customer
+                      key={c.id}
+                      id={c.id}
+                      image={c.image}
+                      name={c.name}
+                      birthday={c.birthday}
+                      gender={c.gender}
+                      job={c.job}
+                    />
+                  );
+                })
+              : "못 가지고 오겠음"}
           </TableBody>
         </Table>
       </Paper>
