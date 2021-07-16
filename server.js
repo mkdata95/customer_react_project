@@ -28,7 +28,7 @@ app.get("/api/customers", (req, res) => {
     "SELECT * FROM customer WHERE isDeleted = 0",
     (err, rows, fields) => {
       res.send(rows);
-      console.log(rows);
+      // console.log(rows);
     }
   );
 });
